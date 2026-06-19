@@ -8,15 +8,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+load_dotenv() # load the environment variables
+
 RENTAL_URL = os.getenv("RENTAL_URL")  # rental url
 FORM_URL = os.getenv("FORM_URL")  # form url
 
 def setup():
     """
-    Setup the environment variables and get the rental ads
+    Setup the variables and get the rental ads
     """
-    load_dotenv() # load the environment variables
-
     chrome_options = webdriver.ChromeOptions()  # Create a new option object
     chrome_options.add_experimental_option("detach", True)  # Attach the driver to the background
     user_data_dir = os.path.join(os.getcwd(), "chrome_profile")  # Set the user data directory
@@ -102,5 +102,5 @@ def submit_to_form(driver, titles, prices, locations, typologies, areas, links):
     print("ℹ️ All ads submitted")
 
 driver = setup() # setup the driver
-titles, prices, locations, typologies, areas, links = scrape_ads(RENTAL_URL) # scrape the ads
-submit_to_form(driver, FORM_URL, titles, prices, locations, typologies, areas, links) # submit the ads
+titles, prices, locations, typologies, areas, links = scrape_ads() # scrape the ads
+submit_to_form(driver, titles, prices, locations, typologies, areas, links) # submit the ads
